@@ -15,11 +15,23 @@ import org.junit.Test;
  */
 public class ReusablePoolTest {
 
+	ReusablePool pool, pool2;
+	Reusable r1,r2, aux;
+
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
+		//Inicializamos nuestro objeto de tipo ReusablePool.
+		pool = ReusablePool.getInstance();
+		
+		//Inicializamos nuestros objetos de tipo Reusable.
+	    r1 = pool.acquireReusable();
+	    r2 = pool.acquireReusable();
+	    
+	    pool.releaseReusable(r1);
+	    pool.releaseReusable(r2);
 	}
 
 	/**
@@ -27,6 +39,10 @@ public class ReusablePoolTest {
 	 */
 	@After
 	public void tearDown() throws Exception {
+		pool = null;
+		r1 = null;
+		r2 = null;
+		aux = null;
 	}
 
 	/**

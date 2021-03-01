@@ -50,7 +50,13 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testGetInstance() {
-		fail("Not yet implemented");
+		// Comprobamos que la instancia de pool2 no ha sido incializada y que por lo
+		// tanto es null.
+		assertNull(pool2);
+
+		// Comprobamos que la instancia de pool ha sido incializada y que por lo tanto
+		// es DISTINTO de null.
+		assertNotNull(pool);
 	}
 
 	/**

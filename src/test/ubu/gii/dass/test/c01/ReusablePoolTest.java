@@ -64,7 +64,35 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testAcquireReusable() {
-		fail("Not yet implemented");
+		//Extraemos r2 ya que es el ultimo objeto añadido a pool.
+		try {
+			assertEquals(r2, pool.acquireReusable());
+		} catch (NotFreeInstanceException e) {
+			e.printStackTrace();
+		}
+		
+		/* Utilizamos la variable auxiliar aux para comprobar con el método util(), que el elemento extraido de pool
+		sea igual que r1.*/
+		try {
+			aux = pool.acquireReusable();
+			assertEquals(r1.util(), aux.util());
+		} catch (NotFreeInstanceException e) {
+			e.printStackTrace();
+		}
+		
+		
+		// Salta la excepción al no qeudar objetos tipo Reusable libres.
+		try {
+			pool.acquireReusable();
+		} catch (NotFreeInstanceException ex) {
+			assertTrue(true);
+			try {
+				pool.releaseReusable(r1);
+				pool.releaseReusable(r2);
+			} catch (DuplicatedInstanceException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**

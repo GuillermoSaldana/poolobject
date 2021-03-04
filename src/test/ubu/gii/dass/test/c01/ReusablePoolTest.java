@@ -69,7 +69,7 @@ public class ReusablePoolTest {
 		try {
 			assertEquals(r2, pool.acquireReusable());
 		} catch (NotFreeInstanceException e) {
-			e.printStackTrace();
+			fail("No se ha extraido con exito");
 		}
 		
 		/* Utilizamos la variable auxiliar aux para comprobar con el método util(), que el elemento extraido de pool
@@ -78,20 +78,20 @@ public class ReusablePoolTest {
 			aux = pool.acquireReusable();
 			assertEquals(r1.util(), aux.util());
 		} catch (NotFreeInstanceException e) {
-			e.printStackTrace();
+			fail("No se ha extraido con exito");
 		}
 		
 		
 		// Salta la excepción al no qeudar objetos tipo Reusable libres.
 		try {
 			pool.acquireReusable();
+			fail("No ha saltado la excepcion NotFreeInstanceException");
 		} catch (NotFreeInstanceException ex) {
-			assertTrue(true);
 			try {
 				pool.releaseReusable(r1);
 				pool.releaseReusable(r2);
 			} catch (DuplicatedInstanceException e) {
-				e.printStackTrace();
+				fail("Ya habia objetos en el pool");
 			}
 		}
 	}

@@ -101,26 +101,24 @@ public class ReusablePoolTest {
 	 */
 	@Test
 	public void testReleaseReusable() {
-		// Al añadir r1 salta la excepción porque ya existe esta en nuestro objeto pool.
+		// Al añadir r1 salta la excepción porque ya existe, esta en nuestro objeto pool.
 		try {
 			pool.releaseReusable(r1);
-		}catch (DuplicatedInstanceException ex) {
-			assertTrue(true);
-		}
+			fail("No se añadido con exito");
+		}catch (DuplicatedInstanceException e) {}
 		
 		//Retiramos el último objeto de tipo Reusable de pool.  
 		try {
 			assertEquals(r2, pool.acquireReusable());
 		} catch (NotFreeInstanceException e) {
-			e.printStackTrace();
+			fail("No se ha extraido con exito");
 		}
 		
 		//Añadimos r2 el cual lo habíamos extraido anteriormente.
 		try {
 			pool.releaseReusable(r2);
-			assertTrue(true);
 		}catch (DuplicatedInstanceException e) {
-			e.printStackTrace();
+			fail("No se añadido con exito");
 		}
 	}
 
